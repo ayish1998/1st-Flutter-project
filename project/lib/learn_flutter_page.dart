@@ -8,6 +8,8 @@ class LearnFlutterPage extends StatefulWidget {
 }
 
 class _LearnFlutterPageState extends State<LearnFlutterPage> {
+  bool isSwitch = false;
+  bool? isCheckbox = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,11 +22,100 @@ class _LearnFlutterPageState extends State<LearnFlutterPage> {
           },
           icon: const Icon(Icons.arrow_back_ios),
         ),
-      ),
-      body: Column(
-        children: [
-          Image.asset('images/einstein.jpg')
+        actions: [
+          IconButton(
+            onPressed: () {
+              debugPrint('Actions');
+            },
+            icon: const Icon(
+              Icons.info_outline,
+            ),
+          ),
         ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Image.asset('images/einstein.jpg'),
+            const SizedBox(
+              height: 10,
+            ),
+            const Divider(
+              color: Colors.black,
+            ),
+            Container(
+              margin: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(10.0),
+              color: Colors.blueGrey,
+              width: double.infinity,
+              child: const Center(
+                child: Text(
+                  'This is a text widget',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: isSwitch ? Colors.green : Colors.blue,
+              ),
+              onPressed: () {
+                debugPrint('ElevatedButton');
+              },
+              child: const Text('ElevatedButton'),
+            ),
+            OutlinedButton(
+              onPressed: () {
+                debugPrint('OutlinedButton');
+              },
+              child: const Text('OutlinedButton'),
+            ),
+            TextButton(
+              onPressed: () {
+                debugPrint('TextButton');
+              },
+              child: const Text('TextButton'),
+            ),
+            GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () {
+                debugPrint('This is the row ');
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: const [
+                  Icon(
+                    Icons.local_fire_department,
+                    color: Colors.blue,
+                  ),
+                  Text('Row widget'),
+                  Icon(
+                    Icons.local_fire_department,
+                    color: Colors.blue,
+                  ),
+                ],
+              ),
+            ),
+            Switch(
+                value: isSwitch,
+                onChanged: (bool newBool) {
+                  setState(() {
+                    isSwitch = newBool;
+                  });
+                }),
+            Checkbox(
+                value: isCheckbox,
+                onChanged: (bool? newBool) {
+                  setState(() {
+                    isCheckbox = newBool;
+                  });
+                }),
+            Image.network(
+                'https://cdn.pixabay.com/photo/2015/12/09/01/02/mandalas-1084082__480.jpg')
+          ],
+        ),
       ),
     );
   }
